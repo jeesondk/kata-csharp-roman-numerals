@@ -44,7 +44,8 @@ public class NumberConverter
         {
             < 0 => new Tuple<bool, string>(false, "Negative numbers are not allowed"),
             0 => new Tuple<bool, string>(false, "Only positive numbers allowed"),
-            > 5000 => new Tuple<bool, string>(false, "Roman numerals does not go beyond 5000"),
+            > 10 => new Tuple<bool, string>(false, "Converter only supports 1 .. 10 at the moment"),
+          //  > 5000 => new Tuple<bool, string>(false, "Roman numerals does not go beyond 5000"),
             _ => new Tuple<bool, string>(true, string.Empty)
         };
         
