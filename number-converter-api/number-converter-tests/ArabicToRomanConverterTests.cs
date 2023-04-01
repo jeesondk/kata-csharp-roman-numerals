@@ -32,4 +32,17 @@ public class ArabicToRomanConverterTests
             .Should()
             .Be(r);
     }
+
+    [Theory]
+    [InlineData(-3, "Negative numbers are not allowed")]
+    [InlineData(0, "Only positive numbers allowed")]
+    [InlineData(5001, "Roman numerals does not go beyond 5000")]
+    void CanValidateInput(int i, string s)
+    {
+        var act = () => _converter.ToRoman(i);
+        act
+            .Should()
+            .Throw<ArgumentException>()
+            .WithMessage(s);
+    }
 }
