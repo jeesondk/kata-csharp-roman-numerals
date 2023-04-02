@@ -1,4 +1,5 @@
 using FluentAssertions;
+using Microsoft.AspNetCore.Mvc;
 using number_converter_api.Controllers;
 using number_converter_api.Dto;
 
@@ -38,10 +39,9 @@ public class ToRomanControllerTests
     void CanConvertToRoman(int i, string s)
     {
         var body = new ArabicNumber(i);
-        _toRomanController
-            .ToRoman(body)
-            .Result
-            .Should()
-            .Be(s);
+        
+        var result = (OkObjectResult)_toRomanController.ToRoman(body);
+        var romanNum = (RomanNumeral)result.Value;
+        romanNum.value.Should().Be(s);
     }
 }

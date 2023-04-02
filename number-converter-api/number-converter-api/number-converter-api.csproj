@@ -18,4 +18,8 @@
       </Content>
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\number-converter\number-converter.csproj" />
+    </ItemGroup>
+
 </Project>
