@@ -1,5 +1,7 @@
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc;
+using Moq;
+using number_converter;
 using number_converter_api.Controllers;
 using number_converter_api.Dto;
 
@@ -7,12 +9,13 @@ namespace number_converter_api_tests;
 
 public class ToRomanControllerTests
 {
-    private ToRomanController _toRomanController;
+    private readonly ToRomanController _toRomanController;
+    private readonly Mock<INumberConverter> _numberConverterMock = new(MockBehavior.Strict);
 
 
     public ToRomanControllerTests()
     {
-        _toRomanController = new ToRomanController();
+        _toRomanController = new ToRomanController(_numberConverterMock.Object);
     }
     
     [Fact]
@@ -39,9 +42,13 @@ public class ToRomanControllerTests
     void CanConvertToRoman(int i, string s)
     {
         var body = new ArabicNumber(i);
-        
+
+        _numberConverterMock.Setup(m => m.ToRoman(i)).Returns(s);
+
         var result = (OkObjectResult)_toRomanController.ToRoman(body);
         var romanNum = (RomanNumeral)result.Value;
         romanNum.value.Should().Be(s);
+        
+        _numberConverterMock.Verify( m => m.ToRoman(i), Times.Once);
     }
 }

@@ -9,11 +9,11 @@ namespace number_converter_api.Controllers;
 [Route("[controller]")]
 public class ToRomanController : Controller
 {
-    private readonly NumberConverter _numberConverter;
+    private readonly INumberConverter _numberConverter;
 
-    public ToRomanController()
+    public ToRomanController(INumberConverter numberConverter)
     {
-        _numberConverter = new NumberConverter();
+        _numberConverter = numberConverter;
     }
     
     [HttpPost(Name = "ToRoman")]

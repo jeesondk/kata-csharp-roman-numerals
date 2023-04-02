@@ -1,6 +1,6 @@
 ﻿namespace number_converter;
 
-public class NumberConverter
+public class NumberConverter : INumberConverter
 {
     private readonly Dictionary<int, string> _arabicToRomanLookUp;
 
